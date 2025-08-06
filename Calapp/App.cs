@@ -27,5 +27,13 @@ namespace Calapp
         {
 
         }
+
+        public void Run()
+        {
+            Console.Write("> ");
+            string? input = Console.ReadLine();
+
+
+        }
     }
 }
