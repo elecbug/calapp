@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Calapp.Command
+﻿namespace Calapp.Command
 {
     internal class Raw
     {
@@ -17,7 +11,7 @@ namespace Calapp.Command
             _command = command;
         }
 
-        public Result? Interpret()
+        public Result Interpret()
         {
             switch (_command.ToLower())
             {

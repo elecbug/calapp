@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Calapp
+﻿namespace Calapp
 {
     internal class App
     {
@@ -23,17 +17,18 @@ namespace Calapp
             }
         }
 
-        private App()
-        {
-
-        }
-
         public void Run()
         {
-            Console.Write("> ");
-            string? input = Console.ReadLine();
+            while (true)
+            {
+                Console.Write("> ");
+                string? input = Console.ReadLine();
 
+                Command.Raw command = new Command.Raw(this, input ?? string.Empty);
+                Command.Result result = command.Interpret();
 
+                result.Run();
+            }
         }
     }
 }
