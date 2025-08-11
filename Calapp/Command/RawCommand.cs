@@ -82,7 +82,7 @@ namespace Calapp.Command
                     return new ArrayCommand(_app, parts[1]);
                 case FUNCTION_COMMAND:
                 case FUNCTION_COMMAND_SHORT:
-                    return new FunctionCommand(_app, parts[1]);
+                    return new FuncCommand(_app, parts[1]);
                 default:
                     return new UnknownCommand(_command);
             }

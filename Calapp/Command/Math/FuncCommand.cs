@@ -1,11 +1,13 @@
-﻿namespace Calapp.Command.Math
+﻿using System.Text.RegularExpressions;
+
+namespace Calapp.Command.Math
 {
-    internal class FunctionCommand : BaseCommand
+    internal class FuncCommand : BaseCommand
     {
         private App _app;
         private string _command;
 
-        public FunctionCommand(App app, string command)
+        public FuncCommand(App app, string command)
         {
             _app = app;
             _command = command;
@@ -38,6 +40,30 @@
             _app.Functions[functionName] = (parameters, expression);
 
             return ($"Function '{_command}' defined successfully.", ConsoleColor.Green);
+        }
+
+        public static decimal CalcFunc(App app, (string[], string) function, Dictionary<string, decimal> args)
+        {
+            string expression = function.Item2;
+
+            for (int i = 0; i < function.Item1.Length; i++)
+            {
+                string pattern = @"\b[a-zA-Z_][a-zA-Z0-9_]*\b";
+
+                expression = Regex.Replace(expression, pattern, match =>
+                {
+                    string paramName = match.Value;
+
+                    if (paramName == function.Item1[i])
+                    {
+                        return args[paramName].ToString();
+                    }
+
+                    return match.Value;
+                });
+            }
+
+            return CalcCommand.EvaluateExpression(app, expression);
         }
     }
 }
