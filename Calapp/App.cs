@@ -4,6 +4,7 @@
     {
         private static App? _instance;
         private Dictionary<string, decimal> _variables = new Dictionary<string, decimal>();
+        private Dictionary<string, (string[], string)> _functions = new Dictionary<string, (string[], string)>();
 
         public static App Instance
         {
@@ -20,6 +21,10 @@
         public Dictionary<string, decimal> Variables
         {
             get { return _variables; }
+        }
+        public Dictionary<string, (string[], string)> Functions
+        {
+            get { return _functions; }
         }
 
         public void Run()
@@ -39,17 +44,9 @@
                 Command.RawCommand command = new Command.RawCommand(this, input ?? string.Empty);
                 Command.BaseCommand result = command.Interpret();
 
-                (string, bool) res = result.Run();
+                (string, ConsoleColor) res = result.Run();
 
-                if (res.Item2)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                }
-
+                Console.ForegroundColor = res.Item2;
                 Console.WriteLine(res.Item1);
             }
         }

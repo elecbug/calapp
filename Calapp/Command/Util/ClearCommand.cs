@@ -2,11 +2,11 @@
 {
     internal class ClearCommand : BaseCommand
     {
-        public override (string, bool) Run()
+        public override (string, ConsoleColor) Run()
         {
             Console.Clear();
             
-            return ("Console cleared.", true);
+            return ("Console cleared.", ConsoleColor.Green);
         }
     }
 }

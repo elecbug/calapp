@@ -16,8 +16,11 @@ namespace Calapp.Command
 
         private const string EXIT_COMMAND = "exit";
         private const string QUIT_COMMAND = "quit";
+        private const string QUIT_COMMAND_SHORT = "q";
         private const string HELP_COMMAND = "help";
+        private const string HELP_COMMAND_SHORT = "h";
         private const string CLEAR_COMMAND = "clear";
+        private const string CLEAR_COMMAND_SHORT = "cls";
 
         private const string VAR_COMMAND = "var";
         private const string VAR_COMMAND_SHORT = "v";
@@ -25,6 +28,16 @@ namespace Calapp.Command
         private const string SHOW_COMMAND_SHORT = "s";
         private const string CALC_COMMAND = "calc";
         private const string CALC_COMMAND_SHORT = "c";
+        private const string ARRAY_COMMAND = "arr";
+        private const string ARRAY_COMMAND_SHORT = "a";
+        private const string FUNCTION_COMMAND = "func";
+        private const string FUNCTION_COMMAND_SHORT = "f";
+
+        public static readonly string[] Keywords =
+        [
+            "exit", "quit", "q", "help", "h", "clear", "cls",
+            "var", "v", "show", "s", "calc", "c", "arr", "a", "func", "f",
+        ];
 
         public BaseCommand Interpret()
         {
@@ -47,32 +60,32 @@ namespace Calapp.Command
             {
                 case EXIT_COMMAND:
                 case QUIT_COMMAND:
+                case QUIT_COMMAND_SHORT:
                     return new ExitCommand();
                 case HELP_COMMAND:
+                case HELP_COMMAND_SHORT:
                     return new HelpCommand();
                 case CLEAR_COMMAND:
+                case CLEAR_COMMAND_SHORT:
                     return new ClearCommand();
+                case VAR_COMMAND:
+                case VAR_COMMAND_SHORT:
+                    return new VarCommand(_app, parts[1]);
+                case SHOW_COMMAND:
+                case SHOW_COMMAND_SHORT:
+                    return new ShowCommand(_app, parts[1]);
+                case CALC_COMMAND:
+                case CALC_COMMAND_SHORT:
+                    return new CalcCommand(_app, parts[1]);
+                case ARRAY_COMMAND:
+                case ARRAY_COMMAND_SHORT:
+                    return new ArrayCommand(_app, parts[1]);
+                case FUNCTION_COMMAND:
+                case FUNCTION_COMMAND_SHORT:
+                    return new FunctionCommand(_app, parts[1]);
                 default:
-                    if (parts[0] == VAR_COMMAND || parts[0] == VAR_COMMAND_SHORT)
-                    {
-                        return new VarCommand(_app, parts[1]);
-                    }
-
-                    else if (parts[0] == SHOW_COMMAND || parts[0] == SHOW_COMMAND_SHORT)
-                    {
-                        return new ShowCommand(_app, parts[1]);
-                    }
-
-                    else if (parts[0] == CALC_COMMAND || parts[0] == CALC_COMMAND_SHORT)
-                    {
-                        return new CalcCommand(_app, parts[1]);
-                    }
-
-                    else
-                    {
-                        return new UnknownCommand(_command);
-                    }
+                    return new UnknownCommand(_command);
             }
-        } 
+        }
     }
 }

@@ -2,11 +2,11 @@
 {
     internal class ExitCommand : BaseCommand
     {
-        public override (string, bool) Run()
+        public override (string, ConsoleColor) Run()
         {
             Environment.Exit(0);
             
-            return ("Exiting application...", true);
+            return ("Exiting application...", ConsoleColor.Green);
         }
     }
 }

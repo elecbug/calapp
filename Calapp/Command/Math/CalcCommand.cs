@@ -14,20 +14,20 @@ namespace Calapp.Command.Math
             _command = command;
         }
 
-        public override (string, bool) Run()
+        public override (string, ConsoleColor) Run()
         {
             if (string.IsNullOrEmpty(_command.Trim()))
             {
-                return ("No expression provided. Use 'calc expression' to evaluate an expression.", false);
+                return ("No expression provided. Use 'calc [EXPRESSION]' to evaluate an expression.", ConsoleColor.Red);
             }
             try
             {
                 decimal result = EvaluateExpression(_app, _command);
-                return ($"Result: {result}", true);
+                return ($"Result: {result}", ConsoleColor.Green);
             }
             catch (Exception ex)
             {
-                return ($"Error evaluating expression: {ex.Message}", false);
+                return ($"Error evaluating expression: {ex.Message}", ConsoleColor.Red);
             }
         }
 
